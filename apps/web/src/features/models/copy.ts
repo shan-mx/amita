@@ -1,0 +1,37 @@
+import { MODEL_COPY as SERVER_COPY } from "@amita/backend/config";
+
+export const MODEL_COPY = {
+  settings: "Providers",
+  connect: "Connect provider",
+  custom: "Custom provider",
+  provider: "Provider",
+  baseUrl: "Base URL",
+  apiKey: "API key",
+  keySaved: "API key saved",
+  keepKey: "Leave blank to keep the current key",
+  protocol: "API protocol",
+  saveProvider: "Save provider",
+  removeProvider: "Remove provider",
+  removeConfirm: (provider: string) =>
+    `Remove ${provider}? Agents, sessions, and automations using it will need another model.`,
+  noProvider: "Connect a provider to choose a model.",
+  search: "Search models…",
+  noMatch: "No matching models.",
+  choose: "Choose a model",
+  loading: "Loading models…",
+  refresh: "Refresh models",
+  empty: "No models found. Refresh the list or enter a model ID.",
+  manual: "Add model manually",
+  id: "Model ID",
+  name: "Display name (optional)",
+  advanced: "Advanced settings",
+  reasoningLevels: "Reasoning effort levels",
+  acceptsImages: "Accepts image input",
+  contextWindow: "Context window (tokens)",
+  maxTokens: "Maximum output (tokens)",
+  maxTokensField: "Output limit parameter",
+  missingLimits: (id: string) => `Enter the context window and maximum output for ${id}.`,
+  invalidLimits:
+    "Enter positive token limits. Maximum output must be smaller than the context window.",
+  discoveryFailed: SERVER_COPY.discoveryFailed,
+} as const;

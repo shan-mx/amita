@@ -1,0 +1,39 @@
+{
+  "name": "amita",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/cloudflare-dev.ts",
+    "format": "vp fmt && vp run @amita/companion#format",
+    "check": "vp check --no-fmt && tsc --project scripts/amita/tsconfig.json && vp run @amita/companion#check",
+    "test": "vp run @amita/codemode-sandbox#build && vp test --config vitest.config.ts && vp run @amita/companion#test",
+    "build": "vp run @amita/web#build && vp run @amita/companion#build",
+    "deploy": "vp run build && wrangler deploy --config dist/codemode/wrangler.json && wrangler deploy --config dist/amita/wrangler.json",
+    "db:generate": "vp run @amita/db#generate",
+    "cf:types": "wrangler types",
+    "test:web": "playwright test --config apps/web/playwright.config.ts",
+    "test:cli": "node --test scripts/amita/cli.test.ts"
+  },
+  "devDependencies": {
+    "@clack/prompts": "1.8.1",
+    "@cloudflare/vitest-plugin": "1.4.12",
+    "@cloudflare/workers-types": "5.20261102.1",
+    "@orpc/client": "1.16.1",
+    "@playwright/test": "1.64.1",
+    "@types/node": "24.19.2",
+    "jsonc-parser": "3.3.1",
+    "miniflare": "5.20261101.0-beta",
+    "typescript": "7.0.2",
+    "vite": "catalog:",
+    "vite-plus": "catalog:",
+    "vitest": "catalog:",
+    "wrangler": "4.156.1",
+    "zod": "4.6.7"
+  },
+  "engines": {
+    "node": "^24.11.0",
+    "pnpm": "^12.0.0"
+  },
+  "packageManager": "pnpm@12.18.0"
+}

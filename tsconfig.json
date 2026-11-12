@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "ES2023",
+    "lib": ["ES2023", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "jsx": "react-jsx",
+    "strict": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "noEmit": true,
+    "types": [
+      "vite-plus/client",
+      "@cloudflare/workers-types",
+      "node",
+      "@cloudflare/vitest-plugin/types"
+    ],
+    "allowJs": true,
+    "paths": { "@/*": ["./apps/web/src/*"] }
+  },
+  "include": ["apps", "packages", "scripts/*.ts", "*.ts"]
+}

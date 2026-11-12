@@ -1,0 +1,36 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "amita",
+  "main": "apps/api/src/index.ts",
+  "compatibility_date": "2026-11-03",
+  "compatibility_flags": ["nodejs_compat"],
+  "secrets": { "required": ["AMITA_OWNER_PASSWORD", "AMITA_CREDENTIAL_ENCRYPTION_KEY"] },
+  "ratelimits": [
+    {
+      "name": "LOGIN_RATE_LIMITER",
+      "namespace_id": "641979831",
+      "simple": { "limit": 3, "period": 60 },
+    },
+  ],
+  "assets": {
+    "directory": "./dist/client",
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application",
+    "run_worker_first": ["/api/*", "/webhooks/*"],
+  },
+  "durable_objects": {
+    "bindings": [
+      { "name": "DEPLOYMENT", "class_name": "Deployment" },
+      { "name": "AGENTS", "class_name": "Agent" },
+      { "name": "COMPUTERS", "class_name": "Computer" },
+      {
+        "name": "CODEMODE_SANDBOX",
+        "class_name": "CodemodeSandboxDurableObject",
+        "script_name": "amita-codemode-sandbox",
+      },
+    ],
+  },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["Deployment", "Agent", "Computer"] }],
+  "rules": [{ "type": "Text", "globs": ["**/*.sql"], "fallthrough": true }],
+  "observability": { "enabled": true },
+}

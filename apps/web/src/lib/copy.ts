@@ -1,0 +1,33 @@
+import { COPY as SERVER_COPY } from "@amita/backend/config";
+
+export const COPY = {
+  newAgent: "New agent",
+  agentSettings: "Agent settings",
+  cancel: "Cancel",
+  loading: "Loading…",
+  signOut: "Sign out",
+  connected: "Connected",
+  reconnecting: "Reconnecting…",
+  running: "Running",
+  memory: "Memory",
+  reloadLatest: "Reload latest",
+  saveMemory: "Save memory",
+  contextChanges:
+    "New conversations use changes immediately. Existing conversations pick them up after compaction.",
+  searchSessions: "Search sessions",
+  archivedSessions: "Archived sessions",
+  activeSessions: "Active sessions",
+  archive: "Archive",
+  restore: "Restore",
+  rename: "Rename",
+  computer: "Computers",
+  computerOnline: "Online",
+  computerOffline: "Offline",
+  computerSlugInvalid: SERVER_COPY.computerSlugInvalid,
+  configuration: SERVER_COPY.configuration,
+  expired: SERVER_COPY.expired,
+  memoryTooLong: SERVER_COPY.memoryTooLong,
+  newSession: SERVER_COPY.newSession,
+  personaConflict: SERVER_COPY.personaConflict,
+  requestFailed: SERVER_COPY.requestFailed,
+} as const;

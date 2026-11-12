@@ -1,0 +1,12 @@
+{
+  "name": "@amita/companion",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "format": "node ../../scripts/companion.ts format",
+    "check": "node ../../scripts/companion.ts check",
+    "test": "node ../../scripts/companion.ts test",
+    "build": "node ../../scripts/companion.ts build"
+  }
+}

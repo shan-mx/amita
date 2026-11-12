@@ -1,0 +1,32 @@
+{
+  "$schema": "../../../node_modules/wrangler/config-schema.json",
+  "name": "amita-tests",
+  "main": "../../../apps/api/src/index.ts",
+  "compatibility_date": "2026-11-03",
+  "compatibility_flags": ["nodejs_compat"],
+  "ratelimits": [
+    {
+      "name": "LOGIN_RATE_LIMITER",
+      "namespace_id": "641979832",
+      "simple": { "limit": 3, "period": 60 },
+    },
+  ],
+  "durable_objects": {
+    "bindings": [
+      { "name": "DEPLOYMENT", "class_name": "Deployment" },
+      { "name": "AGENTS", "class_name": "Agent" },
+      { "name": "COMPUTERS", "class_name": "Computer" },
+      {
+        "name": "CODEMODE_SANDBOX",
+        "class_name": "CodemodeSandboxDurableObject",
+        "script_name": "amita-codemode-sandbox",
+      },
+    ],
+  },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["Deployment", "Agent", "Computer"] }],
+  "rules": [{ "type": "Text", "globs": ["**/*.sql"], "fallthrough": true }],
+  "vars": {
+    "AMITA_OWNER_PASSWORD": "test-owner-password",
+    "AMITA_CREDENTIAL_ENCRYPTION_KEY": "MDEyMzQ1Njc4OWFiY2RlZjAxMjM0NTY3ODlhYmNkZWY=",
+  },
+}

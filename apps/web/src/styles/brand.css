@@ -1,0 +1,21 @@
+.amita-mark {
+  display: inline-flex;
+  width: 30px;
+  height: 30px;
+  align-items: center;
+  gap: 3px;
+  transform: rotate(-12deg);
+}
+.amita-mark i {
+  display: block;
+  width: 5px;
+  height: 26px;
+  border-radius: 3px;
+  background: var(--primary);
+}
+.amita-mark i:nth-child(2) {
+  height: 18px;
+}
+.amita-mark i:nth-child(3) {
+  height: 10px;
+}

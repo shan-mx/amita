@@ -1,0 +1,69 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+main() {
+  local command=${1:---help}
+  case "$command" in
+    -h|--help)
+      echo 'Usage: ./amita <setup|update|destroy>'
+      return
+      ;;
+    setup|update|destroy) ;;
+    *)
+      echo "Unknown command: $command. Use setup, update, or destroy." >&2
+      return 1
+      ;;
+  esac
+  if [[ $# -ne 1 ]]; then
+    echo 'Usage: ./amita <setup|update|destroy>' >&2
+    return 1
+  fi
+
+  cd -- "$(dirname -- "${BASH_SOURCE[0]}")"
+  if [[ "$command" == update ]]; then
+    if [[ $(git symbolic-ref --quiet --short HEAD) != main ]]; then
+      echo 'Update requires the main branch. Switch to main and run this command again.' >&2
+      return 1
+    fi
+    if ! git diff --quiet || ! git diff --cached --quiet; then
+      echo 'Your checkout has local changes. Commit or discard them before updating.' >&2
+      return 1
+    fi
+    echo 'Updating to the latest origin/main...'
+    git pull --ff-only origin main
+  fi
+
+  if [[ ! -t 0 || ! -t 1 ]]; then
+    echo 'Run ./amita in an interactive terminal.' >&2
+    return 1
+  fi
+
+  local vp_binary install_dir
+  install_dir=${VP_HOME:-$HOME/.vite-plus}
+  vp_binary=$(type -P vp || true)
+  if [[ -z "$vp_binary" && -x "$install_dir/bin/vp" ]]; then
+    vp_binary="$install_dir/bin/vp"
+  fi
+  if [[ -z "$vp_binary" ]]; then
+    local tool
+    for tool in curl tar; do
+      if ! command -v "$tool" >/dev/null; then
+        echo "Required system tool not found: $tool. Install it and run this command again." >&2
+        return 1
+      fi
+    done
+    echo 'Installing Vite+...'
+    (
+      installer=$(mktemp)
+      trap 'rm -f "$installer"' EXIT
+      curl --fail --silent --show-error --location https://vite.plus --output "$installer"
+      VP_HOME="$install_dir" VP_NODE_MANAGER=yes bash "$installer"
+    )
+    vp_binary="$install_dir/bin/vp"
+  fi
+  echo 'Installing dependencies...'
+  "$vp_binary" env exec pnpm install --frozen-lockfile
+  exec "$vp_binary" env exec node scripts/amita/cli.ts "$command"
+}
+
+main "$@"

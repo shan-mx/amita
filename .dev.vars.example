@@ -1,0 +1,4 @@
+# Copy to .dev.vars. Never commit real credentials.
+AMITA_OWNER_PASSWORD=replace-with-your-owner-password
+# Generate once: openssl rand -base64 32
+AMITA_CREDENTIAL_ENCRYPTION_KEY=replace-with-a-base64-encoded-32-byte-key

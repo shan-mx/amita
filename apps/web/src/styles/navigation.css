@@ -1,0 +1,22 @@
+.nav-session[aria-current="page"] {
+  font-weight: 600;
+}
+
+.nav-session-row:not(:has([aria-current="page"])):hover {
+  background: var(--muted);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .nav-session-row:not(:hover, :focus-within, :has([aria-current="page"])) .nav-session-more {
+    opacity: 0;
+  }
+  .nav-session-row .nav-session-more[data-popup-open] {
+    opacity: 1;
+  }
+}
+
+@media (pointer: coarse) {
+  .nav-session {
+    min-height: 44px;
+  }
+}
